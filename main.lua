@@ -24,9 +24,16 @@ CreateThread(function()
 
                 if not DoesEntityExist(Ped) then
                     Ped = CreatePed(1, PedModel, PedCoords.x, PedCoords.y, PedCoords.z, ped.heading, false, true)
-                    SetPedDiesWhenInjured(Ped, false)
-                    SetPedCanPlayAmbientAnims(Ped, true)
-                    SetPedCanRagdollFromPlayerImpact(Ped, false)
+                    if ped.behaviour.invincible then
+                        SetPedDiesWhenInjured(Ped, false)
+                    end
+                    if ped.behaviour.canMove then
+                        SetPedCanPlayAmbientAnims(Ped, true)
+                        SetPedCanRagdollFromPlayerImpact(Ped, false)
+                    end
+                    if ped.behaviour.ignorePlayer then
+                        SetBlockingOfNonTemporaryEvents(ped, true)
+                    end
                 end
                 
                 TriggerEvent("QBCore:Notify", "You have entered a zone", "success")
@@ -54,29 +61,35 @@ end)
     Creates a ped that will dynamically spawn within given radius
 
     @param model: hash - Hash of the ped model
-    @param x: float - X coordinate
-    @param y: float - Y coordinate
-    @param z: float - Z coordinate
-    @param h: float - heading direction
-    @param radius: number - range in which ped will spawn
-    @param useZ: boolean - turn circle zone into a spherical zone
-    @param debug: boolean - draw debug circle
+    @param props: table {
+        coords: vector3 - ped coordinate
+        heading: float - heading direction
+        radius: number - range in which ped will spawn
+        useZ: boolean - turn circle zone into a spherical zone
+        debug: boolean - draw debug circle
+    }
+    @param behaviour: table {
+        invincible: bool
+        canMove: bool
+        ignorePlayer: bool
+    }
 ]]
 
-exports("NewPed", function(model, name, x, y, z, h, radius, useZ, debug)
+exports("NewPed", function(model, name, props, behaviour)
     local coords = vector3(x, y, z)
-    Zone = CircleZone:Create(coords, radius, {
+    Zone = CircleZone:Create(props.coords, props.radius, {
         name = name,
-        debugPoly = debug,
-        useZ = useZ
+        debugPoly = props.debug,
+        useZ = props.useZ
     })
 
     table.insert(Peds, {
         name = name,
         model = model,
         zone = Zone,
-        coords = coords,
-        heading = h
+        coords = props.coords,
+        heading = props.heading,
+        behaviour = behaviour
     })
 end)
 

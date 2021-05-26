@@ -5,14 +5,22 @@ API for spawning peds dynamically within a polyzone
 
 ```lua
 -- Create a ped
-CreateThread(function()
-    exports["mojito_pedzones"]:NewPed(`mp_m_freemode_01`, "Test", 11.0, 3.0, 70.0, 0.0, 15.0, false, false)
-end)
+
+exports["mojito_pedzones"]:NewPed(`mp_m_freemode_01`, "Test", {
+    coords = vector3(11.0, 3.0, 70.0),
+    radius = 15.0,
+    heading = 0.0,
+    useZ = false,
+    debug = false
+}, {
+    invincible = true,
+    canMove = false,
+    ignorePlayer = true
+})
 
 -- Destroy a ped
-RegisterCommand("DestroyPed", function()
-    exports["mojito_pedzones"]:DestroyPed("Test")
-end)
+
+exports["mojito_pedzones"]:DestroyPed("Test")
 ```
 
 # License
