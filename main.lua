@@ -76,7 +76,6 @@ end)
 ]]
 
 exports("NewPed", function(model, name, props, behaviour)
-    local coords = vector3(x, y, z)
     Zone = CircleZone:Create(props.coords, props.radius, {
         name = name,
         debugPoly = props.debug,
