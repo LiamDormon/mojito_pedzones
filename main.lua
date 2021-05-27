@@ -32,7 +32,7 @@ CreateThread(function()
                         SetPedCanRagdollFromPlayerImpact(Ped, false)
                     end
                     if ped.behaviour.ignorePlayer then
-                        SetBlockingOfNonTemporaryEvents(ped, true)
+                        SetBlockingOfNonTemporaryEvents(Ped, true)
                     end
                 end
                 
