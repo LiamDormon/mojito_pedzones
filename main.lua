@@ -35,8 +35,6 @@ CreateThread(function()
                         SetBlockingOfNonTemporaryEvents(Ped, true)
                     end
                 end
-                
-                TriggerEvent("QBCore:Notify", "You have entered a zone", "success")
 
                 while insidePoint == true do
                     if not Peds[k].zone:isPointInside(GetEntityCoords(PlayerPed)) then
@@ -45,8 +43,6 @@ CreateThread(function()
                         if DoesEntityExist(Ped) then
                             DeletePed(Ped)
                         end
-
-                        TriggerEvent("QBCore:Notify", "You have left a zone", "error")
                     end
 
                     Wait(5)
