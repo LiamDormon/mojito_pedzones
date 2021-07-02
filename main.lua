@@ -31,12 +31,10 @@ CreateThread(function()
                     if ped.behaviour.canMove then
                         SetPedCanPlayAmbientAnims(Ped, true)
                         SetPedCanRagdollFromPlayerImpact(Ped, false)
+                        FreezeEntityPosition(Ped, true)
                     end
                     if ped.behaviour.ignorePlayer then
                         SetBlockingOfNonTemporaryEvents(Ped, true)
-                    end
-                    if ped.behaviour.freeze then
-                        FreezeEntityPosition(Ped, true)
                     end
                 end
 
