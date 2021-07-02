@@ -26,10 +26,12 @@ CreateThread(function()
                     Ped = CreatePed(1, PedModel, PedCoords.x, PedCoords.y, PedCoords.z, ped.heading, false, true)
                     if ped.behaviour.invincible then
                         SetPedDiesWhenInjured(Ped, false)
+                        SetEntityInvincible(Ped, true)
                     end
                     if ped.behaviour.canMove then
                         SetPedCanPlayAmbientAnims(Ped, true)
                         SetPedCanRagdollFromPlayerImpact(Ped, false)
+                        FreezeEntityPosition(Ped, true)
                     end
                     if ped.behaviour.ignorePlayer then
                         SetBlockingOfNonTemporaryEvents(Ped, true)
